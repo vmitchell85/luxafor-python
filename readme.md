@@ -1,14 +1,25 @@
 # Luxafor Python Script
 
+Script written to modify the Luxafor USB LED indicator via command line using python.
+
+Any and all improvements welcome and appreciated.
+
+## Confirmed Working Operating Systems
+- Windows 10
+
+## Known/Possible Issues
+- Had some weird issues where the Luxafor would go off mid command when the default Luxafor app was not running
+
 ## Parameters
--l = LED - 1-6 for specific LED, 65 for front, 66 for back, 0 for all, 255 for all one color
--r = RED value (0-255)
--g = GREEN value (0-255)
--b = BLUE value (0-255)
--s = Speed value - Determines speed of strobe or fade (0-255)
--t = Repeat value - Determines the frequency of strobe or wave (0-255)
--w = Wave value - 5 Different Patterns available (1-5)
--p = Built In Patterns - 8 built in patterns
+
+-l = LED - 1-6 for specific LED, 65 for front, 66 for back, 0 for all, 255 for all one color  
+-r = RED value (0-255)  
+-g = GREEN value (0-255)  
+-b = BLUE value (0-255)  
+-s = Speed value - Determines speed of strobe or fade (0-255)  
+-t = Repeat value - Determines the frequency of strobe or wave (0-255)  
+-w = Wave value - 5 Different Patterns available (1-5)  
+-p = Built In Patterns - 8 built in patterns  
 
 ## Actions
 
