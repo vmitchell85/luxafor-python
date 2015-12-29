@@ -14,7 +14,9 @@ Any and all improvements welcome and appreciated.
 - Windows 10
 
 ## Known/Possible Issues
-- Had some weird issues where the Luxafor would go off mid command when the default Luxafor app was not running
+- Seems the Luxafor app has to be at least running in the tray for commands to persist
+- Opening the Luxafor app switches the color to Green/Red (depeding on last used?)
+- Seems that it doesn't always return to the exact same state it was in before a strobe or pattern is ran
 
 ## Parameters
 
