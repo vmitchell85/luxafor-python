@@ -1,8 +1,14 @@
 # Luxafor Python Script
 
-Script written to modify the Luxafor USB LED indicator via command line using python.
+Script written to modify the [Luxafor](http://www.luxafor.com) USB LED indicator via command line using python.
 
 Any and all improvements welcome and appreciated.
+
+## Requirements
+1. Luxafor LED Indicator
+2. [Luxafor Software](http://luxafor.com/download)
+3. Python 2.7+
+4. [PyWinUSB](https://pypi.python.org/pypi/pywinusb/) (installable via pip)
 
 ## Confirmed Working Operating Systems
 - Windows 10
