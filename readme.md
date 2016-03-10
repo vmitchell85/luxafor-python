@@ -4,6 +4,8 @@ Script written to modify the [Luxafor](http://www.luxafor.com) USB LED indicator
 
 Any and all improvements welcome and appreciated.
 
+Credit to gist by [dave-irvine](https://gist.github.com/dave-irvine/dbec2584e7508cbfc79e) for pyusb code.
+
 ## Requirements
 
 ### Linux
