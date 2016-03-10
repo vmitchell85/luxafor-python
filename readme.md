@@ -24,6 +24,11 @@ Any and all improvements welcome and appreciated.
 - Ubuntu 15.10
 
 ## Known/Possible Issues
+
+### Linux
+- Sometimes first run doesn't work, have to run command a second time
+
+### Windows
 - Seems the Luxafor app has to be at least running in the tray for commands to persist
 - Opening the Luxafor app switches the color to Green/Red (depeding on last used?)
 - Seems that it doesn't always return to the exact same state it was in before a strobe or pattern is ran
