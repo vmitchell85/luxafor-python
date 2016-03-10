@@ -57,7 +57,7 @@ Set the specified LED to the specified color
 
 #### Hex Color (Linux)
 	
-    luxafor-linux.py color-x "#F22613"
+    luxafor-linux.py color -x "#F22613"
 
 ### Fade
 
