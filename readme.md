@@ -5,6 +5,15 @@ Script written to modify the [Luxafor](http://www.luxafor.com) USB LED indicator
 Any and all improvements welcome and appreciated.
 
 ## Requirements
+
+### Linux
+
+1. Luxafor LED Indicator
+3. Python 2.7+
+4. [PyUSB](https://walac.github.io/pyusb/)
+
+### Windows
+
 1. Luxafor LED Indicator
 2. [Luxafor Software](http://luxafor.com/download)
 3. Python 2.7+
@@ -12,6 +21,7 @@ Any and all improvements welcome and appreciated.
 
 ## Confirmed Working Operating Systems
 - Windows 10
+- Ubuntu 15.10
 
 ## Known/Possible Issues
 - Seems the Luxafor app has to be at least running in the tray for commands to persist
