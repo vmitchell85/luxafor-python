@@ -3,122 +3,112 @@ import usb.util
 import sys
 import argparse
 
-def main():
-    # Get Device, catch exception if not found
-    device = setupDevice()
+DEVICE = None
+ACTION = None
+LED = None
 
-    # Setup argument parser
+HEX = None
+RED = None
+GREEN = None
+BLUE = None
+SPEED = None
+REPEAT = None
+WAVE = None
+PATTERN = None
+
+
+def main():
+    global RED
+    global GREEN
+    global BLUE
+    setupDevice()
+    setupArgs()
+
+    if HEX:
+        rgb = hex_to_rgb(HEX)
+        RED = rgb[0]
+        GREEN = rgb[1]
+        BLUE = rgb[2]
+
+    # Determine which action
+    if ACTION == 'color':
+        setColor()
+    elif ACTION == 'fade':
+        setFade()
+    elif ACTION == 'strobe':
+        setStrobe()
+    elif ACTION == 'wave':
+        setWave()
+    elif ACTION == 'pattern':
+        setPattern()
+
+def setupArgs():
+    global RED
+    global GREEN
+    global BLUE
+    global SPEED
+    global REPEAT
+    global WAVE
+    global PATTERN
+    global ACTION
+    global LED
+    global HEX
+    
     parser = initArgParser()
     args = parser.parse_args()
 
-    # Determine which action
-    if args.action == 'color':
-        setColor(device, args)
-    elif args.action == 'fade':
-        setFade(device, args)
-    elif args.action == 'strobe':
-        setStrobe(device, args)
-    elif args.action == 'wave':
-        setWave(device, args)
-    elif args.action == 'pattern':
-        setPattern(device, args)
+    ACTION  = args.action if args.action else 'color'
+    RED     = args.r if args.r else 0
+    GREEN   = args.g if args.g else 0
+    BLUE    = args.b if args.b else 0
+    SPEED   = args.s if args.s else 0
+    REPEAT  = args.t if args.t else 0
+    WAVE    = args.w if args.w else 0
+    PATTERN = args.p if args.p else 0
+    LED     = args.l if args.l else 255
+    HEX     = args.x if args.x else 0
+
+
+def hex_to_rgb(value): # http://stackoverflow.com/a/214657
+    value = value.lstrip('#')
+    lv = len(value)
+    return tuple(int(value[i:i + lv // 3], 16) for i in range(0, lv, lv // 3))
 
 def setupDevice():
-    device = usb.core.find(idVendor=0x04d8, idProduct=0xf372)
+    global DEVICE
+    DEVICE = usb.core.find(idVendor=0x04d8, idProduct=0xf372)
 
-    # was it found?
-    if device is None:
+    # Device found?
+    if DEVICE is None:
         raise ValueError('Device not found')
 
-    # Linux kernel sets up a device driver for USB device, which you have
-    # to detach. Otherwise trying to interact with the device gives a
-    # 'Resource Busy' error.
+    # Linux kernel sets up a device driver for USB device, which you have to detach.
+    # Otherwise trying to interact with the device gives a 'Resource Busy' error.
     try:
-      device.detach_kernel_driver(0)
+      DEVICE.detach_kernel_driver(0)
     except Exception, e:
       pass                       
      
-    device.set_configuration()
+    DEVICE.set_configuration()
 
-    return device
+def writeValue( values ):
+    DEVICE.write(1, values)
+    DEVICE.write(1, values) # Run it again to ensure it works.
 
+def setPattern():
+    writeValue( [6,PATTERN,REPEAT,0,0,0,0] )
 
-def setPattern(device, args):
-    # Check for arguments & set values if needed
-    if not args.t:
-        args.t = 5
-    if not args.p or args.p > 8:
-        args.p = 1
-    # Set Data
-    values = [6,args.p,args.t,0,0,0,0]
-    device.write(1, values)
-
-def setWave(device, args):
-    # Check for arguments & set values if needed
-    if not args.r:
-        args.r = 0
-    if not args.g:
-        args.g = 0
-    if not args.b:
-        args.b = 0
-    if not args.w or args.w > 5:
-        args.w = 1
-    if not args.s:
-        args.s = 30
-    if not args.t:
-        args.t = 5
-    
-    # Set Data
-    values = [4,args.w,args.r,args.g,args.b,0,args.t,args.s]
-    device.write(1, values)
+def setWave():
+    writeValue( [4,WAVE,RED,GREEN,BLUE,0,REPEAT,SPEED] )
 
 def setStrobe(device, args):
-    # Check for arguments & set values if needed
-    if not args.r:
-        args.r = 0
-    if not args.g:
-        args.g = 0
-    if not args.b:
-        args.b = 0
-    if not args.l:
-        args.l = 255
-    if not args.s:
-        args.s = 30
-    if not args.t:
-        args.t = 5
-    
-    values = [3,args.l,args.r,args.g,args.b,args.s,0,args.t]
-    device.write(1, values)
+    writeValue( [3,LED,RED,GREEN,BLUE,SPEED,0,REPEAT] )
 
-def setFade(device, args):
-    # Check for arguments & set values if needed
-    if not args.r:
-        args.r = 0
-    if not args.g:
-        args.g = 0
-    if not args.b:
-        args.b = 0
-    if not args.l:
-        args.l = 255
-    if not args.s:
-        args.s = 30
-    
-    values = [2,args.l,args.r,args.g,args.b,args.s,0]
-    device.write(1, values)
+def setFade():    
+    writeValue( [2,LED,RED,GREEN,BLUE,SPEED,0] )
 
-def setColor(device, args):
-    # Check for arguments & set values if needed
-    if not args.r:
-        args.r = 0
-    if not args.g:
-        args.g = 0
-    if not args.b:
-        args.b = 0
-    if not args.l:
-        args.l = 255
-    
-    values = [1,args.l,args.r,args.g,args.b,0,0]
-    device.write(1, values)
+def setColor():
+    writeValue( [1,LED,RED,GREEN,BLUE,0,0] )
 
 def initArgParser():
     
@@ -133,6 +123,7 @@ def initArgParser():
     parser.add_argument('-t', help='Repeat Value', type=int)
     parser.add_argument('-w', help='Wave Value', type=int)
     parser.add_argument('-p', help='Pattern Value', type=int)
+    parser.add_argument('-x', help='Hex Color', type=str)
 
     return parser
 

@@ -44,7 +44,8 @@ Credit to gist by [dave-irvine](https://gist.github.com/dave-irvine/dbec2584e750
 -s = Speed value - Determines speed of strobe or fade (0-255)  
 -t = Repeat value - Determines the frequency of strobe or wave (0-255)  
 -w = Wave value - 5 Different Patterns available (1-5)  
--p = Built In Patterns - 8 built in patterns  
+-p = Built In Patterns - 8 built in patterns
+-x = Hex color value - ("#RRGGBB")
 
 ## Actions
 
@@ -52,23 +53,27 @@ Credit to gist by [dave-irvine](https://gist.github.com/dave-irvine/dbec2584e750
 
 Set the specified LED to the specified color
 
-    luxafor.py color -l 255 -r 255 -g 0 -b 0
+    luxafor-linux.py color -l 255 -r 255 -g 0 -b 0
+
+#### Hex Color (Linux)
+	
+    luxafor-linux.py color-x "#F22613"
 
 ### Fade
 
-    luxafor.py fade -l 255 -r 0 -g 255 -b 0
+    luxafor-linux.py fade -l 255 -r 0 -g 255 -b 0
 
 ### Strobe
 
-    luxafor.py strobe -l 255 -r 0 -g 0 -b 255 -s 20 -t 5
+    luxafor-linux.py strobe -l 255 -r 0 -g 0 -b 255 -s 20 -t 5
 
 ### Wave
 
-    luxafor.py wave -w 4 -r 0 -g 0 -b 255 -s 20 -t 3 
+    luxafor-linux.py wave -w 4 -r 0 -g 0 -b 255 -s 20 -t 3 
 
 ### Pattern
 
-    luxafor.py pattern -p 2 -r 3
+    luxafor-linux.py pattern -p 2 -r 3
 
 ## Raw Values
 
