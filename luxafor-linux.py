@@ -101,7 +101,7 @@ def setPattern():
 def setWave():
     writeValue( [4,WAVE,RED,GREEN,BLUE,0,REPEAT,SPEED] )
 
-def setStrobe(device, args):
+def setStrobe():
     writeValue( [3,LED,RED,GREEN,BLUE,SPEED,0,REPEAT] )
 
 def setFade():    
