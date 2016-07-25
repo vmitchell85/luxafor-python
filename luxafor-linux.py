@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 import usb.core
 import usb.util
 import sys
@@ -53,7 +54,7 @@ def setupArgs():
     global ACTION
     global LED
     global HEX
-    
+
     parser = initArgParser()
     args = parser.parse_args()
 
@@ -87,8 +88,8 @@ def setupDevice():
     try:
       DEVICE.detach_kernel_driver(0)
     except Exception, e:
-      pass                       
-     
+      pass
+
     DEVICE.set_configuration()
 
 def writeValue( values ):
@@ -104,14 +105,14 @@ def setWave():
 def setStrobe():
     writeValue( [3,LED,RED,GREEN,BLUE,SPEED,0,REPEAT] )
 
-def setFade():    
+def setFade():
     writeValue( [2,LED,RED,GREEN,BLUE,SPEED,0] )
 
 def setColor():
     writeValue( [1,LED,RED,GREEN,BLUE,0,0] )
 
 def initArgParser():
-    
+
     # Setup argument parser
     parser = argparse.ArgumentParser(description='Luxafor Arguments')
     parser.add_argument('action', help='Action', choices=["color", "fade", "wave", "strobe", "pattern"])
