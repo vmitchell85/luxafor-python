@@ -30,12 +30,16 @@ Credit to gist by [dave-irvine](https://gist.github.com/dave-irvine/dbec2584e750
 ### Linux
 - Sometimes first run doesn't work, have to run command a second time
 
-### Allow usb permissions for python in Ubuntu 16.04
+### Allow usb permissions for python in Ubuntu 16.04/16.10
 By default python will not let use usb libs and you will need to run command with `sudo` everythime. Let's no do that.
 
-- find out device with `lsusb`. Should be something like `04d8:f372` where `04d8` is vendor id and `f372` is product id.
-- create file `/lib/udev/rules.d/50-luxafor.rules`
-> ACTION=="add", SUBSYSTEMS=="usb", ATTRS{idVendor}=="_VENDOR_ID_", ATTRS{idProduct}=="_PRODUCT_ID_", MODE="660", GROUP="plugdev"
+- find out device with `lsusb`. Should be something like `04d8:f372` where `04d8` is vendor id and `f372` is product id. Try listing devices with device connected and the one more time disconnected and spot the difference.
+- change vendor and product ids and run snippet:
+```bash
+MY_VENDOR_ID=04d8
+MY_PRODUCT_ID=f372
+echo "ACTION==\"add\", SUBSYSTEMS==\"usb\", ATTRS{idVendor}==\"$MY_VENDOR_ID\", ATTRS{idProduct}==\"$MY_PRODUCT_ID\", MODE=\"660\", GROUP=\"plugdev\"" | sudo tee /lib/udev/rules.d/50-luxafor.rules
+```
 - Reload rules:  
     - `sudo udevadm control --reload`
     - `sudo udevadm trigger`
