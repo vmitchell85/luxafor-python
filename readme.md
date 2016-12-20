@@ -30,6 +30,22 @@ Credit to gist by [dave-irvine](https://gist.github.com/dave-irvine/dbec2584e750
 ### Linux
 - Sometimes first run doesn't work, have to run command a second time
 
+#### Avoid Sudo Prompt
+By default python will not let use usb libs and you will need to run command with `sudo` everytime. To prevent this you will need to do the following:
+
+1: Create a file, `/lib/udev/rules.d/50-luxafor.rules` with the following contents:
+
+```
+# Allow Luxafor USB control
+ACTION=="add", SUBSYSTEMS=="usb", ATTRS{idVendor}=="04d8", ATTRS{idProduct}=="f372", MODE="660", GROUP="plugdev"
+```
+
+2: Reload the `udevadm` using the following commands:  
+`sudo udevadm control --reload`  
+`sudo udevadm trigger`
+
+3: Unplug and reinsert your Luxafor device
+
 ### Windows
 - Seems the Luxafor app has to be at least running in the tray for commands to persist
 - Opening the Luxafor app switches the color to Green/Red (depeding on last used?)
