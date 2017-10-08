@@ -3,19 +3,6 @@
 import usb
 import argparse
 
-DEVICE = None
-ACTION = None
-LED = None
-
-HEX = None
-RED = None
-GREEN = None
-BLUE = None
-SPEED = None
-REPEAT = None
-WAVE = None
-PATTERN = None
-
 
 def hex_to_rgb(value):  # http://stackoverflow.com/a/214657
     value = value.lstrip('#')
