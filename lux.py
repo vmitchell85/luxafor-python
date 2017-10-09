@@ -1,7 +1,12 @@
 #!/usr/bin/env python
 
-import usb
 import argparse
+import platform
+
+if platform.system() == 'Windows':
+    import luxdevwin as luxdev
+else:
+    import luxdevlin as luxdev
 
 
 def hex_to_rgb(value):  # http://stackoverflow.com/a/214657
@@ -19,23 +24,10 @@ class Lux(object):
         PATTERN = 6
 
     def __init__(self):
-        self.dev = usb.core.find(idVendor=0x04d8, idProduct=0xf372)
-        if self.dev is None:
-            raise IOError("device not found")
-
-        # Linux kernel sets up a device driver for USB device, which you have
-        # to detach. Otherwise trying to interact with the device gives a
-        # 'Resource Busy' error.
-        try:
-            self.dev.detach_kernel_driver(0)
-        except usb.USBError:
-            pass
-
-        self.dev.set_configuration()
+        self.dev = luxdev.LuxDev()
 
     def write(self, data):
-        self.dev.write(1, data)
-        self.dev.write(1, [])  # needed for some reason, need more doc
+        self.dev.write(data)
 
     def color(self, led, r, g, b):
         self.write([self.Cmd.COLOR, led, r, g, b, 0, 0, 0])
