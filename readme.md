@@ -51,17 +51,13 @@ ACTION=="add", SUBSYSTEMS=="usb", ATTRS{idVendor}=="04d8", ATTRS{idProduct}=="f3
 - Opening the Luxafor app switches the color to Green/Red (depeding on last used?)
 - Seems that it doesn't always return to the exact same state it was in before a strobe or pattern is ran
 
-## Parameters
+## Common parameters
 
--l = LED - 1-6 for specific LED, 65 for front, 66 for back, 0 for all, 255 for all one color  
--r = RED value (0-255)  
--g = GREEN value (0-255)  
--b = BLUE value (0-255)  
--s = Speed value - Determines speed of strobe or fade (0-255)  
--t = Repeat value - Determines the frequency of strobe or wave (0-255)  
--w = Wave value - 5 Different Patterns available (1-5)  
+-l = LED - 1-6 for specific LED, 65 for front, 66 for back, 0 for all, 255 for all one color
+-s = Speed value - Determines speed of strobe or fade (0-255)
+-t = Repeat value - Determines the frequency of strobe or wave (0-255)
+-w = Wave value - 5 Different Patterns available (1-5)
 -p = Built In Patterns - 8 built in patterns
--x = Hex color value - ("#RRGGBB")
 
 ## Actions
 
@@ -69,29 +65,23 @@ ACTION=="add", SUBSYSTEMS=="usb", ATTRS{idVendor}=="04d8", ATTRS{idProduct}=="f3
 
 Set the specified LED to the specified color
 
-    luxafor-linux.py color -l 255 -r 255 -g 0 -b 0
-
-#### Hex Color (Linux)
-	
-    luxafor-linux.py color -x "#F22613"
+    lux.py color -l 255 ff0000
 
 ### Fade
 
-    luxafor-linux.py fade -l 255 -r 0 -g 255 -b 0
+    luxafor-linux.py fade -l 255 00ff00
 
 ### Strobe
 
-    luxafor-linux.py strobe -l 255 -r 0 -g 0 -b 255 -s 20 -t 5
+    luxafor-linux.py strobe -l 255 0000ff -s 20 -t 5
 
 ### Wave
 
-    luxafor-linux.py wave -w 4 -r 0 -g 0 -b 255 -s 20 -t 3 
+    luxafor-linux.py wave -w 4 0000ff -s 20 -t 3
 
 ### Pattern
 
-    luxafor-linux.py pattern -p 2 -r 3
-
-## Raw Values
+    luxafor-linux.py pattern 2 -r 3
 
 ### Solid Color
 Raw data array posisitions as follows:
