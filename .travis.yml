@@ -26,4 +26,4 @@ install:
   - pip install --upgrade --quiet --requirement requirements.txt
 
 script:
-  - flake8 lux.py
+  - flake8 .
