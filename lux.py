@@ -5,7 +5,6 @@ import argparse
 
 
 def hex_to_rgb(value):  # http://stackoverflow.com/a/214657
-    value = value.lstrip('#')
     lv = len(value)
     return tuple(int(value[i:i + lv // 3], 16) for i in range(0, lv, lv // 3))
 
@@ -91,13 +90,13 @@ def parse_args():
                                help='use {command} -h for more help')
 
     p = sp.add_parser('color', help='solid color')
-    p.add_argument('hex', help='color hex value (e.g. "#ff3355")')
+    p.add_argument('hex', help='color hex value (e.g. "ff3355")')
     p.set_defaults(func=cmd_color)
     p.add_argument('-l', dest='led', type=int, default=255,
                    help='which LED (1-6) default: all')
 
     p = sp.add_parser('fade', help='fade to a different color')
-    p.add_argument('hex', help='color hex value (e.g. "#ff3355")')
+    p.add_argument('hex', help='color hex value (e.g. "ff3355")')
     p.set_defaults(func=cmd_fade)
     p.add_argument('-l', dest='led', type=int, default=255,
                    help='which LED (1-6) default: all')
@@ -105,7 +104,7 @@ def parse_args():
                    default=10)
 
     p = sp.add_parser('wave', help='rotate a color')
-    p.add_argument('hex', help='color hex value (e.g. "#ff3355")')
+    p.add_argument('hex', help='color hex value (e.g. "ff3355")')
     p.set_defaults(func=cmd_wave)
     p.add_argument('-s', dest='speed', help='speed Value (0-255)', type=int,
                    default=10)
@@ -115,7 +114,7 @@ def parse_args():
                    help='wave Value (1-5)', type=int, default=1)
 
     p = sp.add_parser('strobe', help='stroby thinggie')
-    p.add_argument('hex', help='color hex value (e.g. "#ff3355")')
+    p.add_argument('hex', help='color hex value (e.g. "ff3355")')
     p.set_defaults(func=cmd_strobe)
     p.add_argument('-l', dest='led', type=int, default=255,
                    help='which LED (1-6) default: all')
@@ -124,7 +123,7 @@ def parse_args():
     p.add_argument('-t', dest='repeat', help='repeat Value (0-255)', type=int,
                    default=0)
 
-    p = sp.add_parser('pattern', help='stroby thinggie')
+    p = sp.add_parser('pattern', help='built-in pattern')
     p.add_argument('patt', help='pattern number (0-8)', type=int)
     p.set_defaults(func=cmd_pattern)
     p.add_argument('-t', dest='repeat', help='repeat Value (0-255)', type=int,
