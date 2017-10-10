@@ -69,19 +69,19 @@ Set the specified LED to the specified color
 
 ### Fade
 
-    luxafor-linux.py fade -l 255 00ff00
+    lux.py fade -l 255 00ff00
 
 ### Strobe
 
-    luxafor-linux.py strobe -l 255 0000ff -s 20 -t 5
+    lux.py strobe -l 255 0000ff -s 20 -t 5
 
 ### Wave
 
-    luxafor-linux.py wave -w 4 0000ff -s 20 -t 3
+    lux.py wave -w 4 0000ff -s 20 -t 3
 
 ### Pattern
 
-    luxafor-linux.py pattern 2 -r 3
+    lux.py pattern 2 -r 3
 
 ### Solid Color
 Raw data array posisitions as follows:
