@@ -87,7 +87,7 @@ def setupDevice():
     # Otherwise trying to interact with the device gives a 'Resource Busy' error.
     try:
       DEVICE.detach_kernel_driver(0)
-    except Exception, e:
+    except Exception as e:
       pass
      
     DEVICE.set_configuration()
