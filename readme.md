@@ -12,7 +12,7 @@ Credit to gist by [dave-irvine](https://gist.github.com/dave-irvine/dbec2584e750
 
 1. Luxafor LED Indicator
 3. Python 2.7+
-4. [PyUSB](https://walac.github.io/pyusb/)
+4. [PyUSB](https://github.com/pyusb/pyusb) (installable via pip)
 
 ### Windows
 
@@ -23,7 +23,7 @@ Credit to gist by [dave-irvine](https://gist.github.com/dave-irvine/dbec2584e750
 
 ## Confirmed Working Operating Systems
 - Windows 10
-- Ubuntu 15.10
+- Ubuntu 15.10/17.10/18.10
 
 ## Known/Possible Issues
 
