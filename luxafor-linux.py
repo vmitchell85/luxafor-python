@@ -3,8 +3,9 @@ import usb.core
 import usb.util
 import sys
 import argparse
+import logging
 
-DEVICE = None
+DEVICES = []
 ACTION = None
 LED = None
 
@@ -22,7 +23,7 @@ def main():
     global RED
     global GREEN
     global BLUE
-    setupDevice()
+    setupDevices()
     setupArgs()
 
     if HEX:
@@ -75,26 +76,33 @@ def hex_to_rgb(value): # http://stackoverflow.com/a/214657
     lv = len(value)
     return tuple(int(value[i:i + lv // 3], 16) for i in range(0, lv, lv // 3))
 
-def setupDevice():
-    global DEVICE
-    DEVICE = usb.core.find(idVendor=0x04d8, idProduct=0xf372)
+def setupDevices():
+    global DEVICES
+
+    for flag in usb.core.find(find_all=True, idProduct=0xf372):
+        DEVICES.append(flag)
+
+    logging.basicConfig(stream=sys.stderr, level=logging.DEBUG)
+    # logging.debug(DEVICES)
 
     # Device found?
-    if DEVICE is None:
-        raise ValueError('Device not found')
+    if len(DEVICES) < 1:
+        raise ValueError('Device(s) not found')
 
     # Linux kernel sets up a device driver for USB device, which you have to detach.
     # Otherwise trying to interact with the device gives a 'Resource Busy' error.
-    try:
-      DEVICE.detach_kernel_driver(0)
-    except Exception, e:
-      pass
+    for flag in DEVICES:
+        try:
+            flag.detach_kernel_driver(0)
+        except Exception, e:
+            pass
      
-    DEVICE.set_configuration()
+        flag.set_configuration()
 
 def writeValue( values ):
-    DEVICE.write(1, values)
-    DEVICE.write(1, values) # Run it again to ensure it works.
+    for flag in DEVICES:
+        flag.write(1, values)
+        flag.write(1, values) # Run it again to ensure it works.
 
 def setPattern():
     writeValue( [6,PATTERN,REPEAT,0,0,0,0] )
