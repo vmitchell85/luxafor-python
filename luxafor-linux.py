@@ -3,7 +3,8 @@ import usb.core
 import usb.util
 import sys
 import argparse
-import logging
+
+from itertools import repeat
 
 DEVICES = []
 ACTION = None
@@ -45,6 +46,7 @@ def main():
         setPattern()
 
 def setupArgs():
+    global DEVICE
     global RED
     global GREEN
     global BLUE
@@ -60,6 +62,7 @@ def setupArgs():
     args = parser.parse_args()
 
     ACTION  = args.action if args.action else 'color'
+    DEVICE  = args.d if args.d else 0
     RED     = args.r if args.r else 0
     GREEN   = args.g if args.g else 0
     BLUE    = args.b if args.b else 0
@@ -82,9 +85,6 @@ def setupDevices():
     for flag in usb.core.find(find_all=True, idProduct=0xf372):
         DEVICES.append(flag)
 
-    logging.basicConfig(stream=sys.stderr, level=logging.DEBUG)
-    # logging.debug(DEVICES)
-
     # Device found?
     if len(DEVICES) < 1:
         raise ValueError('Device(s) not found')
@@ -99,10 +99,19 @@ def setupDevices():
      
         flag.set_configuration()
 
-def writeValue( values ):
+def writeValue(values):
+    if (DEVICE > 0):
+        doWriteValue(DEVICES[DEVICE-1], values)
+        return
+
     for flag in DEVICES:
-        flag.write(1, values)
-        flag.write(1, values) # Run it again to ensure it works.
+        doWriteValue(flag, values)
+
+def doWriteValue(target, values):
+
+    # Run it twice to ensure it works.
+    for _ in repeat(None, 2): 
+        target.write(1, values)
 
 def setPattern():
     writeValue( [6,PATTERN,REPEAT,0,0,0,0] )
@@ -124,6 +133,7 @@ def initArgParser():
     # Setup argument parser
     parser = argparse.ArgumentParser(description='Luxafor Arguments')
     parser.add_argument('action', help='Action', choices=["color", "fade", "wave", "strobe", "pattern"])
+    parser.add_argument('-d', help='Device (blank/0 for all, 1 for first device, etc.', type=int)
     parser.add_argument('-l', help='LED', type=int)
     parser.add_argument('-b', help='Blue Value', type=int)
     parser.add_argument('-r', help='Red Value', type=int)
