@@ -4,8 +4,6 @@ import usb.util
 import sys
 import argparse
 
-from itertools import repeat
-
 DEVICES = []
 ACTION = None
 LED = None
@@ -108,10 +106,9 @@ def writeValue(values):
         doWriteValue(flag, values)
 
 def doWriteValue(target, values):
-
     # Run it twice to ensure it works.
-    for _ in repeat(None, 2): 
-        target.write(1, values)
+    target.write(1, values)
+    target.write(1, values)
 
 def setPattern():
     writeValue( [6,PATTERN,REPEAT,0,0,0,0] )
