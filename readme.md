@@ -53,6 +53,7 @@ ACTION=="add", SUBSYSTEMS=="usb", ATTRS{idVendor}=="04d8", ATTRS{idProduct}=="f3
 
 ## Parameters
 
+-d = Device - 1-n for USB device. 0 for all devices (default)
 -l = LED - 1-6 for specific LED, 65 for front, 66 for back, 0 for all, 255 for all one color  
 -r = RED value (0-255)  
 -g = GREEN value (0-255)  
@@ -70,6 +71,20 @@ ACTION=="add", SUBSYSTEMS=="usb", ATTRS{idVendor}=="04d8", ATTRS{idProduct}=="f3
 Set the specified LED to the specified color
 
     luxafor-linux.py color -l 255 -r 255 -g 0 -b 0
+    
+#### Multiple Luxafor Devices
+Tested with a Luxafor Flag + Luxafor Bluetooth on the same system. _Non-solid color commmands not tested._
+
+    # First USB device to color red:
+    luxafor-linux.py -d 1 color -l 255 -r 255 -g 0 -b 0
+    
+    # Second USB device to color blue:
+    luxafor-linux.py -d 2 color -l 255 -r 0 -g 0 -b 255
+    
+    # All USB devices to color green:
+    luxafor-linux.py color -l 255 -r 0 -g 255 -b 0
+    # or with explicit parameter:
+    luxafor-linux.py color -d 0 -l 255 -r 0 -g 255 -b 0
 
 #### Hex Color (Linux)
 	
