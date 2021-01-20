@@ -53,7 +53,7 @@ ACTION=="add", SUBSYSTEMS=="usb", ATTRS{idVendor}=="04d8", ATTRS{idProduct}=="f3
 
 ## Parameters
 
--d = Device - 1-n for USB device. 0 for all devices (default)
+-d = Device - 1-n for USB device. 0 for all devices (default)  
 -l = LED - 1-6 for specific LED, 65 for front, 66 for back, 0 for all, 255 for all one color  
 -r = RED value (0-255)  
 -g = GREEN value (0-255)  
