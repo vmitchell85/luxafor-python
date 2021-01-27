@@ -64,6 +64,17 @@ ACTION=="add", SUBSYSTEMS=="usb", ATTRS{idVendor}=="04d8", ATTRS{idProduct}=="f3
 -p = Built In Patterns - 8 built in patterns
 -x = Hex color value - ("#RRGGBB")
 
+### Bluetooth Model
+
+`-l` LED parameters work differently for the Bluetooth Flag:
+
+   - `-l 1` = Left LEDs (dongle + flag)
+   - `-l 2` = Right LEDs (dongle + flag)
+   - `-l 3` = Left LED (dongle only)
+   - `-l 4` = Right LED (dongle only)
+   - `-l 0` and `-l 255` work the same way
+   - `-l 65` and `-l 66` are not compatible
+
 ## Actions
 
 ### Color
