@@ -12,7 +12,7 @@ Credit to gist by [dave-irvine](https://gist.github.com/dave-irvine/dbec2584e750
 
 1. Luxafor LED Indicator
 3. Python 2.7+
-4. [PyUSB](https://walac.github.io/pyusb/)
+4. [PyUSB](https://github.com/pyusb/pyusb) (installable via pip)
 
 ### Windows
 
@@ -23,7 +23,7 @@ Credit to gist by [dave-irvine](https://gist.github.com/dave-irvine/dbec2584e750
 
 ## Confirmed Working Operating Systems
 - Windows 10
-- Ubuntu 15.10
+- Ubuntu 15.10/17.10/18.10
 
 ## Known/Possible Issues
 
@@ -53,6 +53,7 @@ ACTION=="add", SUBSYSTEMS=="usb", ATTRS{idVendor}=="04d8", ATTRS{idProduct}=="f3
 
 ## Parameters
 
+-d = Device - 1-n for USB device. 0 for all devices (default)  
 -l = LED - 1-6 for specific LED, 65 for front, 66 for back, 0 for all, 255 for all one color  
 -r = RED value (0-255)  
 -g = GREEN value (0-255)  
@@ -63,6 +64,17 @@ ACTION=="add", SUBSYSTEMS=="usb", ATTRS{idVendor}=="04d8", ATTRS{idProduct}=="f3
 -p = Built In Patterns - 8 built in patterns
 -x = Hex color value - ("#RRGGBB")
 
+### Bluetooth Model
+
+`-l` LED parameters work differently for the Bluetooth Flag:
+
+   - `-l 1` = Left LEDs (dongle + flag)
+   - `-l 2` = Right LEDs (dongle + flag)
+   - `-l 3` = Left LED (dongle only)
+   - `-l 4` = Right LED (dongle only)
+   - `-l 0` and `-l 255` work the same way
+   - `-l 65` and `-l 66` are not compatible
+
 ## Actions
 
 ### Color
@@ -70,6 +82,20 @@ ACTION=="add", SUBSYSTEMS=="usb", ATTRS{idVendor}=="04d8", ATTRS{idProduct}=="f3
 Set the specified LED to the specified color
 
     luxafor-linux.py color -l 255 -r 255 -g 0 -b 0
+    
+#### Multiple Luxafor Devices
+Tested with a Luxafor Flag + Luxafor Bluetooth on the same system. _Non-solid color commmands not tested._
+
+    # First USB device to color red:
+    luxafor-linux.py -d 1 color -l 255 -r 255 -g 0 -b 0
+    
+    # Second USB device to color blue:
+    luxafor-linux.py -d 2 color -l 255 -r 0 -g 0 -b 255
+    
+    # All USB devices to color green:
+    luxafor-linux.py color -l 255 -r 0 -g 255 -b 0
+    # or with explicit parameter:
+    luxafor-linux.py color -d 0 -l 255 -r 0 -g 255 -b 0
 
 #### Hex Color (Linux)
 	
