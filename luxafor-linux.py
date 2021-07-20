@@ -92,7 +92,7 @@ def setupDevices():
     for flag in DEVICES:
         try:
             flag.detach_kernel_driver(0)
-        except Exception, e:
+        except Exception:
             pass
      
         flag.set_configuration()

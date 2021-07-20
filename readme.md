@@ -7,6 +7,8 @@ Any and all improvements welcome and appreciated.
 Credit to gist by [dave-irvine](https://gist.github.com/dave-irvine/dbec2584e7508cbfc79e) for pyusb code.
 
 ## Requirements
+<!-- Thank you dave-irvine for pioneering the USB connection -->
+<!-- Thank YOU vmitchell85 for this beautiful little tool -->
 
 ### Linux
 
@@ -23,7 +25,7 @@ Credit to gist by [dave-irvine](https://gist.github.com/dave-irvine/dbec2584e750
 
 ## Confirmed Working Operating Systems
 - Windows 10
-- Ubuntu 15.10/17.10/18.10
+- Ubuntu 15.10/17.10/18.10/20.04
 
 ## Known/Possible Issues
 
